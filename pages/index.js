@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
+
 export default function Home() {
   const [url, setUrl] = useState('');
   const [links, setLinks] = useState([]);
@@ -33,7 +34,7 @@ export default function Home() {
       const data = await response.json();
       console.log('API response:', data);
       if (data.shortUrl) {
-        setLinks([...links, { id: data.shortUrl, url }]);
+        setLinks([...links, { id: data.shortUrl, url: `/${data.shortUrl.split('/').pop()}` }]);
         console.log('Links state updated:', links);
       } else {
         console.error('No shortUrl in response:', data);
@@ -84,9 +85,9 @@ export default function Home() {
       <div key={link.id} className=" bg-green-400 border rounded-md p-4 w-full max-w-96 "> 
         <div className='flex items-center'> 
             <img src="./component/link.png" height="20" width="20" />
-            <p className='text-black text-sm ml-5 mt-1 mb-1' >Your link has been generated</p>
+            <p className='text-black text-sm ml-5 mt-1 mb-1 text-wrap' >Your link has been generated</p>
         </div>
-      <a className='text-blue-500 underline text-md ml-10' href={`${link.url}`}> {link.id}</a>
+      <a className='text-blue-500 underline text-md ml-10' href={link.url}> {link.id}</a>
       <p className="text-black flex justify-end items-center text-sm">
         <button className="focus:outline-none" onClick={() => handleCopy(link.id)} >Copy</button>
         <img src="./component/copy.png" height="10" width="12" className="ml-1" />

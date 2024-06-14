@@ -1,4 +1,4 @@
-import { supabase } from '../../utils/supabase'
+import  supabase  from '../utils/supabase'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
